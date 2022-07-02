@@ -1,8 +1,10 @@
 package Model;
 
 public class Level_3_model extends Level_2_model{
+
     public Level_3_model(){
         super();
+        top_record = saver.getRecord("level 3");
     }
 
     @Override
@@ -34,8 +36,8 @@ public class Level_3_model extends Level_2_model{
         if(y[0]<0){
             inGame = false;
         }
-        if(!inGame && saver.getRecord("level 2") < record){
-            saver.saveRecord("level 2", record);
+        if(!inGame && top_record< record){
+            saver.saveRecord("level 3", record);
         }
     }
     public void create_wall(){

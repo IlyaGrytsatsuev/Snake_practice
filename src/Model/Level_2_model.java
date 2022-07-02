@@ -9,6 +9,7 @@ public class Level_2_model extends Level_1_model{
 
     public Level_2_model(){
         super();
+        top_record = saver.getRecord("level 2");
     }
 
     public void initGame(){
@@ -63,7 +64,7 @@ public class Level_2_model extends Level_1_model{
             inGame = false;
         }
 
-        if(!inGame && saver.getRecord("level 2") < record){
+        if(!inGame && top_record< record){
             saver.saveRecord("level 2", record);
         }
     }

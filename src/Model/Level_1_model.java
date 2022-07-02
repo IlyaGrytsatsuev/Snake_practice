@@ -24,10 +24,12 @@ public class Level_1_model {
     protected boolean inGame = false;
     protected int record ;
     protected RecordSaver saver;
+    protected int top_record;
 
 
     public Level_1_model(){
         saver = new RecordSaver();
+        //top_record = saver.getRecord("level 1");
     }
 
     public void initGame(){
@@ -108,7 +110,7 @@ public class Level_1_model {
             inGame = false;
         }
 
-        if(!inGame && saver.getRecord("level 1") < record){
+        if(!inGame && top_record< record){
             saver.saveRecord("level 1", record);
         }
 

@@ -12,7 +12,6 @@ public class RecordSaver {
     private String lvl2Record = "src/resources/level2.txt" ;
     private String lvl3Record = "src/resources/level3.txt" ;
     private String filename;
-
     private String level_id;
     private int Record;
 
@@ -33,7 +32,7 @@ public class RecordSaver {
             filename = lvl3Record;
 
 
-        String data = level + record;
+        String data = "" + record;
         //String key = "";
         int val = 0;
         try {
@@ -73,9 +72,9 @@ public class RecordSaver {
             Scanner s = new Scanner(data);
 
             while (s.hasNextLine()) {
-                level_id = s.next();
+                //level_id = s.next();
                 Record = s.nextInt();
-               /* if (s.hasNextLine())
+              /*  if (s.hasNextLine())
                     s.nextLine();*/
             }
 
@@ -89,4 +88,65 @@ public class RecordSaver {
         loadRecord(level);
         return Record;
     }
-}
+
+    public void load_table_info (int[] arr){
+        String data = "";
+        try {
+            FileReader in = new FileReader(lvl1Record);
+            int ch;
+            StringBuilder tmp = new StringBuilder();
+
+            while ((ch = in.read()) > -1)
+                tmp.append((char) ch);
+
+            data = tmp.toString();
+
+            Scanner s = new Scanner(data);
+
+            while (s.hasNextLine()) {
+                //level_id = s.next();
+                arr[0] = s.nextInt();
+              /*  if (s.hasNextLine())
+                    s.nextLine();*/
+            }
+
+            in = new FileReader(lvl2Record);
+            tmp = new StringBuilder();
+
+            while ((ch = in.read()) > -1)
+                tmp.append((char) ch);
+
+            data = tmp.toString();
+
+            s = new Scanner(data);
+
+            while (s.hasNextLine()) {
+                //level_id = s.next();
+                arr[1] = s.nextInt();
+              /*  if (s.hasNextLine())
+                    s.nextLine();*/
+            }
+
+            in = new FileReader(lvl3Record);
+            tmp = new StringBuilder();
+
+            while ((ch = in.read()) > -1)
+                tmp.append((char) ch);
+
+            data = tmp.toString();
+
+            s = new Scanner(data);
+
+            while (s.hasNextLine()) {
+                //level_id = s.next();
+                arr[2] = s.nextInt();
+              /*  if (s.hasNextLine())
+                    s.nextLine();*/
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+
+    }
