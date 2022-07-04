@@ -11,13 +11,17 @@ public class Menu extends JPanel {
     public JButton lvl3;
     public JButton rec;
 
-    public boolean game1;
+    //public boolean game;
     GameField game;
     Menu menuPanel;
     JPanel mainPanel;
+    private Container cont;
+    private CardLayout layout;
 
-    public Menu (){
+    public Menu (CardLayout l, Container cd, GameField g){
         super();
+        cont = cd;
+        layout = l;
         //game1 = b;
         //game = new GameField();
         setBackground(Color.black);
@@ -26,11 +30,13 @@ public class Menu extends JPanel {
         lvl1_ActionListener a = new lvl1_ActionListener();
         lvl1.addActionListener(a);
         add(lvl2 = new JButton ("Level 2"));
+        lvl2_ActionListener b = new lvl2_ActionListener();
+        lvl2.addActionListener(b);
         add(lvl3 = new JButton ("Level 3" ));
         add(rec = new JButton ("Records table"));
         //add(game);
         menuPanel = this;
-        //game1 = g;
+        game = g;
         //setFocusable(false);
 
     }
@@ -38,9 +44,6 @@ public class Menu extends JPanel {
     public class lvl1_ActionListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             //game1 = false;
-
-
-
 
             /*game = new GameField();
             menuPanel.removeAll();
@@ -55,5 +58,17 @@ public class Menu extends JPanel {
          }
 
      }
+
+    public class lvl2_ActionListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+
+            layout.show(cont, "game");
+            game.start();
+            //layout.next(cont);
+
+
+        }
+
+    }
 
 }
