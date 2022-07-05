@@ -3,9 +3,6 @@ package Model;
 import java.util.Random;
 
 public class Level_2_model extends Level_1_model{
-    protected int[] wallX = new int [200];
-    protected int[] wallY = new int [200];
-
 
     public Level_2_model(){
         super();

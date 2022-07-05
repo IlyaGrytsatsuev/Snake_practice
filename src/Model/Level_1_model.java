@@ -26,11 +26,14 @@ public class Level_1_model {
     protected RecordSaver saver;
     protected int top_record;
 
+    protected int [] wallX = new int[200];
+    protected int [] wallY = new int[200];
 
     public Level_1_model(){
         saver = new RecordSaver();
         //top_record = saver.getRecord("level 1");
     }
+
 
     public void initGame(){
         dots = 3;
@@ -138,6 +141,17 @@ public class Level_1_model {
             return down ;
 
         return false;
+    }
+
+    public int  getWallX(int x){
+        return wallX[x];
+    }
+    public int  getWallY(int y){
+        return wallY[y];
+    }
+
+    public int getWallNum(){
+        return 0;
     }
 
     public void setGameState(boolean state){

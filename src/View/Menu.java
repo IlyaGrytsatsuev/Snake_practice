@@ -1,4 +1,4 @@
-package View;
+/*package View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -37,7 +37,6 @@ public class Menu extends JPanel {
         //add(game);
         menuPanel = this;
         game = g;
-        //setFocusable(false);
 
     }
 
@@ -53,7 +52,7 @@ public class Menu extends JPanel {
             //lvl1.removeActionListener(this);
 
             //game.start();
-            System.out.println("pressed");*/
+            System.out.println("pressed");
 
          }
 
@@ -71,4 +70,4 @@ public class Menu extends JPanel {
 
     }
 
-}
+}*/
