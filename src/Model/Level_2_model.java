@@ -1,11 +1,13 @@
 package Model;
 
+import io.RecordSaver;
+
 import java.util.Random;
 
 public class Level_2_model extends Level_1_model{
 
     public Level_2_model(){
-        super();
+        saver = new RecordSaver();
         top_record = saver.getRecord("level 2");
     }
 
@@ -40,28 +42,28 @@ public class Level_2_model extends Level_1_model{
     public void checkCollisions(){
         for (int i = dots; i >0 ; i--) {
             if(i>4 && x[0] == x[i] && y[0] == y[i]){
-                inGame = false;
+                inGame = 0;
             }
         }
 
         for(int i = 0; i<5; i++){
             if(x[0] == wallX[i]&& y[0] == wallY[i])
-                inGame = false;
+                inGame = 0;
         }
         if(x[0]>SIZE){
-            inGame = false;
+            inGame = 0;
         }
         if(x[0]<0){
-            inGame = false;
+            inGame = 0;
         }
         if(y[0]>SIZE){
-            inGame = false;
+            inGame = 0;
         }
         if(y[0]<0){
-            inGame = false;
+            inGame = 0;
         }
 
-        if(!inGame && top_record< record){
+        if(inGame == 0 && top_record< record){
             saver.saveRecord("level 2", record);
         }
     }

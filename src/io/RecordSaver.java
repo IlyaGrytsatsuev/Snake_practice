@@ -12,7 +12,6 @@ public class RecordSaver {
     private String lvl2Record = "src/resources/level2.txt" ;
     private String lvl3Record = "src/resources/level3.txt" ;
     private String filename;
-    private String level_id;
     private int Record;
 
     public RecordSaver(){
@@ -31,10 +30,8 @@ public class RecordSaver {
         if(level.equals("level 3"))
             filename = lvl3Record;
 
-
         String data = "" + record;
-        //String key = "";
-        int val = 0;
+
         try {
 
             FileWriter out = new FileWriter(filename);
@@ -72,10 +69,7 @@ public class RecordSaver {
             Scanner s = new Scanner(data);
 
             while (s.hasNextLine()) {
-                //level_id = s.next();
                 Record = s.nextInt();
-              /*  if (s.hasNextLine())
-                    s.nextLine();*/
             }
 
         }
@@ -104,10 +98,7 @@ public class RecordSaver {
             Scanner s = new Scanner(data);
 
             while (s.hasNextLine()) {
-                //level_id = s.next();
                 arr[0] = s.nextInt();
-              /*  if (s.hasNextLine())
-                    s.nextLine();*/
             }
 
             in = new FileReader(lvl2Record);
@@ -121,10 +112,7 @@ public class RecordSaver {
             s = new Scanner(data);
 
             while (s.hasNextLine()) {
-                //level_id = s.next();
                 arr[1] = s.nextInt();
-              /*  if (s.hasNextLine())
-                    s.nextLine();*/
             }
 
             in = new FileReader(lvl3Record);
@@ -138,10 +126,7 @@ public class RecordSaver {
             s = new Scanner(data);
 
             while (s.hasNextLine()) {
-                //level_id = s.next();
                 arr[2] = s.nextInt();
-              /*  if (s.hasNextLine())
-                    s.nextLine();*/
             }
         }
         catch (IOException e) {

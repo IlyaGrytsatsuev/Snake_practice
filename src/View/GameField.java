@@ -6,46 +6,46 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Random;
 import Model.*;
-import io.RecordSaver;
 
 
 public class GameField extends JPanel implements ActionListener {
 
-    protected int SIZE = 320;
-
-    //private boolean inGame = false;
-
+    private int SIZE = 320;
     private Image dot;
     private Image apple;
     private Image wall;
     private boolean inMenu = true;
     private boolean inTab = false;
+    private boolean retMenu = false;
 
-    public JButton lvl1;
-    public JButton lvl2;
-    public JButton lvl3;
-    public JButton rec;
+    private boolean update_tab = false;
+
+    private int start_count = 0;
+
+    private JButton lvl1;
+    private JButton lvl2;
+    private JButton lvl3;
+    private JButton rec;
 
     private Container cont;
     private CardLayout layout;
-
+    private Timer timer;
     private int level_num;
 
-    private Timer timer;
+    private Level_1_model model;
 
-    Level_1_model model;
-
-    public GameField(CardLayout l, Container cd, RecordTable g){
+    public GameField(CardLayout l, Container cd){
         model = new Level_1_model();
         cont = cd;
         layout = l;
-        //model.setGameState(true);
         setBackground(Color.black);
         loadImages();
         addKeyListener(new FieldKeyListener());
+        add_menu_buttons();
+    }
 
+    public void add_menu_buttons(){
         setBackground(Color.black);
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(lvl1 = new JButton ("Level 1"));
@@ -60,18 +60,17 @@ public class GameField extends JPanel implements ActionListener {
         add(rec = new JButton ("Records table"));
         rec_ActionListener d = new rec_ActionListener();
         rec.addActionListener(d);
-
-
     }
 
     public void start(){
-
         setFocusable(true);
-
         model.initGame();
-        timer = new Timer(250,this);
-        timer.start();
+        if(start_count < 1) {
+            timer = new Timer(250, this);
+            timer.start();
+        }
         repaint();
+        start_count++;
 
     }
 
@@ -89,7 +88,7 @@ public class GameField extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if(model.getGameState() == true){
+        if(model.getGameState() == 1){
             g.drawImage(apple,model.getAppleX(),model.getAppleY(),this);
             for (int i = 0; i < model.getDots(); i++) {
                 g.drawImage(dot,model.getSnakeX(i),model.getSnakeY(i),this);
@@ -100,12 +99,10 @@ public class GameField extends JPanel implements ActionListener {
                 }
             }
         }
-        else if (!inMenu && !inTab){
-            String str = "Game Over";
-            //Font f = new Font("Arial",14,Font.BOLD);
-            g.setColor(Color.white);
-            // g.setFont(f);
-            g.drawString(str,125,SIZE/2);
+            if (model.getGameState() == 0){
+                    String str = "Game Over";
+                    g.setColor(Color.white);
+                    g.drawString(str, 125, SIZE / 2);
         }
     }
 
@@ -113,17 +110,19 @@ public class GameField extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(model.getGameState() == true){
+        if(model.getGameState() == 1){
+            removeAll();
             model.checkApple();
             model.checkCollisions();
             model.move();
-
-            removeAll();
         }
-        if(inTab)
+        if(retMenu){
             removeAll();
-           // paint_tab();
-
+            invalidate();
+            add_menu_buttons();
+            revalidate();
+            retMenu = false;
+        }
         repaint();
     }
 
@@ -132,22 +131,19 @@ public class GameField extends JPanel implements ActionListener {
             level_num = 1;
             inMenu = false;
             model = new Level_1_model();
-            model.setGameState(true);
+            model.setGameState(1);
             start();
-
         }
 
     }
 
     public class lvl2_ActionListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-
             level_num = 2;
             inMenu = false;
             model = new Level_2_model();
-            model.setGameState(true);
+            model.setGameState(1);
             start();
-
         }
 
     }
@@ -157,19 +153,18 @@ public class GameField extends JPanel implements ActionListener {
             level_num = 3;
             inMenu = false;
             model = new Level_3_model();
-            model.setGameState(true);
+            model.setGameState(1);
             start();
         }
-
     }
 
     public class rec_ActionListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
+            update_tab = true;
             inMenu = false;
             inTab = true;
             layout.show(cont, "table");
         }
-
     }
 
     class FieldKeyListener extends KeyAdapter{
@@ -197,10 +192,43 @@ public class GameField extends JPanel implements ActionListener {
                 model.setDirection("right",false);//right = false;
                 model.setDirection("down",true);//down = true;
                 model.setDirection("left",false);//left = false;
-                //System.out.println(model.getDirection("up"));
             }
+
+            if(key == KeyEvent.VK_BACK_SPACE){
+                retMenu = true;
+                model.setGameState(2);
+            }
+
         }
+
     }
 
+    public boolean get_menu_state(){
+        return inMenu;
+    }
+
+    public void set_menu_state(boolean state){
+        inMenu = state;
+    }
+
+    public boolean get_tab_state(){
+        return inTab;
+    }
+
+    public void set_tab_state(boolean state){
+        inTab = state;
+    }
+
+    public boolean get_update_state(){
+        return update_tab;
+    }
+
+    public void set_update_state(boolean state){
+        update_tab = state;
+    }
+
+    public void set_return_state(boolean state){
+        retMenu = state;
+    }
 
 }

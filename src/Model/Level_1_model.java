@@ -1,7 +1,5 @@
 package Model;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Random;
 import io.*;
 
@@ -9,19 +7,16 @@ public class Level_1_model {
     protected int SIZE = 320;
     protected int DOT_SIZE = 16;
     protected int ALL_DOTS = 400;
-    protected Image dot;
-    protected Image apple;
     protected int appleX;
     protected int appleY;
     protected int[] x = new int[ALL_DOTS];
     protected int[] y = new int[ALL_DOTS];
     protected int dots;
-    protected Timer timer;
     protected boolean left = false;
     protected boolean right = true;
     protected boolean up = false;
     protected boolean down = false;
-    protected boolean inGame = false;
+    protected int inGame = 2;
     protected int record ;
     protected RecordSaver saver;
     protected int top_record;
@@ -31,7 +26,7 @@ public class Level_1_model {
 
     public Level_1_model(){
         saver = new RecordSaver();
-        //top_record = saver.getRecord("level 1");
+        top_record = saver.getRecord("level 1");
     }
 
 
@@ -41,8 +36,6 @@ public class Level_1_model {
             x[i] = 48 - i*DOT_SIZE;
             y[i] = 112;
         }
-        // timer = new Timer(250,this);
-        // timer.start();
         createApple();
     }
     public void createApple(){
@@ -94,26 +87,27 @@ public class Level_1_model {
     public int getSnakeY(int n){
         return y[n];
     }
+
     public void checkCollisions(){
         for (int i = dots; i >0 ; i--) {
             if(i>4 && x[0] == x[i] && y[0] == y[i]){
-                inGame = false;
+                inGame = 0;
             }
         }
         if(x[0]>SIZE){
-            inGame = false;
+            inGame = 0;
         }
         if(x[0]<0){
-            inGame = false;
+            inGame = 0;
         }
         if(y[0]>SIZE){
-            inGame = false;
+            inGame = 0;
         }
         if(y[0]<0){
-            inGame = false;
+            inGame = 0;
         }
 
-        if(!inGame && top_record< record){
+        if(inGame == 0 && top_record < record){
             saver.saveRecord("level 1", record);
         }
 
@@ -154,11 +148,11 @@ public class Level_1_model {
         return 0;
     }
 
-    public void setGameState(boolean state){
+    public void setGameState(int state){
         inGame = state;
     }
 
-    public boolean getGameState(){
+    public int getGameState(){
         return inGame;
     }
 }
