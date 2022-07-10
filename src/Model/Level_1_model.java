@@ -11,6 +11,7 @@ public class Level_1_model {
     protected int appleY;
     protected int[] x = new int[ALL_DOTS];
     protected int[] y = new int[ALL_DOTS];
+    protected int start_dots ;
     protected int dots;
     protected boolean left = false;
     protected boolean right = true;
@@ -21,14 +22,20 @@ public class Level_1_model {
     protected RecordSaver saver;
     protected int top_record;
 
-    protected int [] wallX = new int[200];
-    protected int [] wallY = new int[200];
+    protected int [] wallX ;
+    protected int [] wallY ;
 
     public Level_1_model(){
+        wallX = new int[200];
+        wallY = new int[200];
         saver = new RecordSaver();
         top_record = saver.getRecord("level 1");
     }
 
+
+    public void create_wall(){
+
+    }
 
     public void initGame(){
         dots = 3;
@@ -51,9 +58,22 @@ public class Level_1_model {
         return appleY;
     }
 
+    public void setAppleX(int x){
+        appleX = x ;
+    }
+
+    public void setAppleY(int y){
+        appleY = y ;
+    }
+
     public int getDots(){
         return dots;
     }
+
+    public void setDots(int n){dots = n;}
+
+    public void set_start_Dots(int n){start_dots = n;}
+
 
     public void move(){
         for (int i = dots; i > 0; i--) {
@@ -90,7 +110,7 @@ public class Level_1_model {
 
     public void checkCollisions(){
         for (int i = dots; i >0 ; i--) {
-            if(i>4 && x[0] == x[i] && y[0] == y[i]){
+            if(i>3 && x[0] == x[i] && y[0] == y[i]){
                 inGame = 0;
             }
         }

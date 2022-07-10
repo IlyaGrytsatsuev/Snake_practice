@@ -41,7 +41,7 @@ public class Level_2_model extends Level_1_model{
 
     public void checkCollisions(){
         for (int i = dots; i >0 ; i--) {
-            if(i>4 && x[0] == x[i] && y[0] == y[i]){
+            if(i>3 && x[0] == x[i] && y[0] == y[i]){
                 inGame = 0;
             }
         }
