@@ -11,7 +11,6 @@ public class Level_1_model {
     protected int appleY;
     protected int[] x = new int[ALL_DOTS];
     protected int[] y = new int[ALL_DOTS];
-    protected int start_dots ;
     protected int dots;
     protected boolean left = false;
     protected boolean right = true;
@@ -72,7 +71,6 @@ public class Level_1_model {
 
     public void setDots(int n){dots = n;}
 
-    public void set_start_Dots(int n){start_dots = n;}
 
 
     public void move(){

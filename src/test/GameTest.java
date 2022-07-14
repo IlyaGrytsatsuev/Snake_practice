@@ -40,7 +40,7 @@ public class GameTest {
         if(lvl.equals("lvl3"))
             level = new Level_3_model();
 
-        level.set_start_Dots(3);
+
         level.initGame();
         dots_before = level.getDots();
         level.setAppleX(appleX);
@@ -62,7 +62,7 @@ public class GameTest {
         if(lvl.equals("lvl3"))
             level = new Level_3_model();
 
-        level.set_start_Dots(3);
+
         level.initGame();
         level.move();
         level.move();
@@ -125,7 +125,6 @@ public class GameTest {
         if(lvl.equals("lvl3"))
             level = new Level_3_model();
 
-        level.set_start_Dots(3);
         level.initGame();
         for(int i = 0; i < 18; i++)
             level.move();
